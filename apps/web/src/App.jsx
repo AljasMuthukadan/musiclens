@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import "./App.css";
 import  Sidebar  from "./components/Sidebar";
-import StatCard from "./components/StatCard";
+import StatCard from "./components/ui/StatCard";
 import RecentAnalyses from "./components/RecentAnalyses";
 import AudioTools from "./components/AudioTools";
 import GenreAnalyses from "./components/GenreAnalyses";

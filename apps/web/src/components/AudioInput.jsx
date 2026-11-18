@@ -1,5 +1,5 @@
 import { CloudUpload, Disc3, Mic, MicOff, Pause, Play, Settings2, Upload, WandSparkles, X } from "lucide-react";
-import TabButton from "./TabButton";
+import TabButton from "./ui/TabButton";
 
 function AudioInput  ({activeTab, setActiveTab,
     file, setFile, audioUrl, setAudioUrl,

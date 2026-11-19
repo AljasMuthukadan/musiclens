@@ -17,6 +17,7 @@ import RecentAnalyses from "./components/RecentAnalyses";
 import AudioTools from "./components/AudioTools";
 import GenreAnalyses from "./components/GenreAnalyses";
 import AudioInput from "./components/AudioInput";
+import NavBar from "./components/ui/NavBar";
 
 const DEMO_GENRES = [
   { name: "Electronic", value: 68, color: "#a78bfa" },
@@ -225,35 +226,8 @@ function App() {
 
         {/* Main */}
         <main className="min-w-0 flex-1">
-          <header className="flex h-[76px] items-center justify-between border-b border-white/[0.07] px-5 md:px-9">
-            <div className="flex items-center gap-4">
-              <button
-                className="text-[#a1a5af] lg:hidden"
-                onClick={() => setMobileMenu(true)}
-              >
-                <Menu size={23} />
-              </button>
-
-              <span className="text-sm font-medium text-[#c5c8d0]">
-                Workspace
-              </span>
-              <span className="text-[#505561]">/</span>
-              <span className="text-sm text-[#818693]">Overview</span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="hidden items-center gap-2 rounded-full border border-[#b6f36b]/20 bg-[#b6f36b]/[0.06] px-3 py-1.5 text-[11px] text-[#b6f36b] sm:flex">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#b6f36b]" />
-                LOCAL PROCESSING
-              </span>
-              <button
-                title="About MusicLens"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.09] text-[#9297a3]"
-              >
-                <CircleHelp size={17} />
-              </button>
-            </div>
-          </header>
+          {/* Navbar for mobile view also */}
+          <NavBar setMobileMenu={setMobileMenu} />
 
           <div className="mx-auto max-w-[1350px] px-5 py-8 md:px-9 md:py-10">
             {/* Hero */}

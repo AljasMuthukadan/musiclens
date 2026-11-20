@@ -38,9 +38,10 @@ function RecentAnalyses ({ history, clearHistory}){
                 </div>
               ) : (
                 <div className="divide-y divide-white/[0.06]">
-                  {history.map((item) => (
+                  {/* Display the recent analyses in reverse order (most recent first) */}
+                  {history.slice().reverse().map((item) => (
                     <div
-                      key={item.fileName + item.analysisDate}
+                      key={item.id}
                       className="flex items-center gap-4 px-6 py-4"
                     >
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#222834] text-[#b6f36b]">
@@ -54,14 +55,16 @@ function RecentAnalyses ({ history, clearHistory}){
                           {item.analysisDate} · Demo result
                         </p>
                       </div>
-                      <div className="text-right">
+                      {item.genres.map((genre, index) => (
+                        <div className="text-right">
                         <p className="text-xs font-medium">
-                          {item.genres[0]}
+                          {item.genres[index].name}
                         </p>
                         <p className="mt-1 text-[11px] text-[#b6f36b]">
-                          {item.genres}%
+                          {item.genres[index].value}%
                         </p>
                       </div>
+                      ))}
                     </div>
                   ))}
                 </div>

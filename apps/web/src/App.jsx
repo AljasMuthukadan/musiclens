@@ -193,11 +193,12 @@ function App() {
 
       setStatus("complete");
       // Add the analyzed file to history after a short delay
-      addToHistory([{
+      addToHistory({
+        id : Date.now(),
         fileName: file.name,
         analysisDate: new Date().toISOString(),
         genres: DEMO_GENRES,
-      }]);
+      });
 
     }, 1300);
   };

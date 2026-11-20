@@ -3,14 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import {
   Activity,
   BarChart3,
-  CircleHelp,
-  Menu,
   Music2,
   ShieldCheck,
-
-  
 } from "lucide-react";
 import "./App.css";
+
 import  Sidebar  from "./components/Sidebar";
 import StatCard from "./components/ui/StatCard";
 import RecentAnalyses from "./components/RecentAnalyses";
@@ -18,6 +15,8 @@ import AudioTools from "./components/AudioTools";
 import GenreAnalyses from "./components/GenreAnalyses";
 import AudioInput from "./components/AudioInput";
 import NavBar from "./components/ui/NavBar";
+import { formatTime } from "./utils/formatTime";
+import useHistory from "./hooks/useHistory";
 
 const DEMO_GENRES = [
   { name: "Electronic", value: 68, color: "#a78bfa" },
@@ -27,12 +26,7 @@ const DEMO_GENRES = [
   { name: "Jazz", value: 2, color: "#34d399" },
 ];
 
-const formatTime = (seconds) => {
-  if (!Number.isFinite(seconds)) return "0:00";
-  const minutes = Math.floor(seconds / 60);
-  const remaining = Math.floor(seconds % 60);
-  return `${minutes}:${String(remaining).padStart(2, "0")}`;
-};
+
 
 function App() {
   const [activeTab, setActiveTab] = useState("upload");
@@ -44,7 +38,6 @@ function App() {
   const [recording, setRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [status, setStatus] = useState("idle");
-  const [history, setHistory] = useState([]);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [error, setError] = useState("");
 
@@ -54,6 +47,8 @@ function App() {
   const recorderRef = useRef(null);
   const chunksRef = useRef([]);
   const timerRef = useRef(null);
+
+  const  { addToHistory, clearHistory, history } = useHistory();
 
   useEffect(() => {
     return () => {
@@ -195,20 +190,15 @@ function App() {
 
     // Demo only. Replace with real ML inference later.
     window.setTimeout(() => {
+
       setStatus("complete");
-      setHistory((previous) => [
-        {
-          id: Date.now(),
-          name: file.name,
-          genre: "Electronic",
-          confidence: 68,
-          date: new Date().toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-        },
-        ...previous,
-      ].slice(0, 6));
+      // Add the analyzed file to history after a short delay
+      addToHistory([{
+        fileName: file.name,
+        analysisDate: new Date().toISOString(),
+        genres: DEMO_GENRES,
+      }]);
+
     }, 1300);
   };
 
@@ -316,7 +306,7 @@ function App() {
 
             {/* History */}
             {/* It Stores the audio data as a history of recent analyses in local storage */}
-            <RecentAnalyses history={history} setHistory={setHistory} />
+            <RecentAnalyses history={history} clearHistory={clearHistory} />
 
             <footer className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.06] pt-6 text-[11px] text-[#686e7b]">
               <span>© {new Date().getFullYear()} MusicLens</span>

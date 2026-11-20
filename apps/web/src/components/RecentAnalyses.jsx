@@ -1,7 +1,8 @@
 import { Clock3, FileAudio, RotateCcw } from "lucide-react";
 
 
-function RecentAnalyses ({setHistory, history}){
+function RecentAnalyses ({ history, clearHistory}){
+  console.log("history", history)
   return (
     <section
               id="history"
@@ -17,7 +18,7 @@ function RecentAnalyses ({setHistory, history}){
                   </p>
                 </div>
                 <button
-                  onClick={() => setHistory([])}
+                  onClick={() => clearHistory()}
                   className="flex items-center gap-2 text-xs text-[#9ca2ae] hover:text-white"
                 >
                   <RotateCcw size={14} />
@@ -39,7 +40,7 @@ function RecentAnalyses ({setHistory, history}){
                 <div className="divide-y divide-white/[0.06]">
                   {history.map((item) => (
                     <div
-                      key={item.id}
+                      key={item.fileName + item.analysisDate}
                       className="flex items-center gap-4 px-6 py-4"
                     >
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#222834] text-[#b6f36b]">
@@ -47,18 +48,18 @@ function RecentAnalyses ({setHistory, history}){
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-medium">
-                          {item.name}
+                          {item.fileName}
                         </p>
                         <p className="mt-1 text-[11px] text-[#777d89]">
-                          {item.date} · Demo result
+                          {item.analysisDate} · Demo result
                         </p>
                       </div>
                       <div className="text-right">
                         <p className="text-xs font-medium">
-                          {item.genre}
+                          {item.genres[0]}
                         </p>
                         <p className="mt-1 text-[11px] text-[#b6f36b]">
-                          {item.confidence}%
+                          {item.genres}%
                         </p>
                       </div>
                     </div>

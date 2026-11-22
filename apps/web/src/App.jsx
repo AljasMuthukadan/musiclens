@@ -39,7 +39,7 @@ function App() {
   const [activeTab, setActiveTab] = useState("upload");
   const [mobileMenu, setMobileMenu] = useState(false);
   const [error, setError] = useState("");
-
+  const reader  = new FileReader()
   // -----------------------------------
   //  Analysis state
   // -----------------------------------
@@ -87,32 +87,46 @@ function App() {
     },
   });
 
+   
+
   // -----------------------------------
   // Demo analysis
   // -----------------------------------
+  const runDemoAnalysis = async () => {
+  if (!audio.file || status === "analyzing") {
+    return;
+  }
 
-  const runDemoAnalysis = () => {
-    if (!audio.file || status === "analyzing") {
-      return;
-    }
+  setStatus("analyzing");
+  setError("");
 
-    const selectedFile = audio.file;
+  const audioContext = new AudioContext();
 
-    setStatus("analyzing");
-    setError("");
+  try {
+    // Step 1: Read the file
+    const arrayBuffer = await audio.file.arrayBuffer();
 
-    // Demo only. Real ML inference comes later.
-    window.setTimeout(() => {
-      setStatus("complete");
+    // Step 2: Decode the audio
+    const audioBuffer = await audioContext.decodeAudioData(
+      arrayBuffer
+    );
 
-      addToHistory({
-        id: crypto.randomUUID(),
-        fileName: selectedFile.name,
-        analysisDate: new Date().toISOString(),
-        genres: DEMO_GENRES,
-      });
-    }, 1300);
-  };
+    // Step 3: Access the samples
+    const samples = audioBuffer.getChannelData(0);
+
+    console.log("Duration:", audioBuffer.duration);
+    console.log("Sample rate:", audioBuffer.sampleRate);
+    console.log("Samples:", samples);
+
+    // Step 4: Real model inference will go here
+
+  } catch (error) {
+    setError(error.message || "Audio analysis failed.");
+    setStatus("idle");
+  } finally {
+    await audioContext.close();
+  }
+};
 
   // -----------------------------------
   // UI

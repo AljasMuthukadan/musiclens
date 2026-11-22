@@ -33,7 +33,7 @@ const DEMO_GENRES = [
 
 function App() {
   // -----------------------------------
-  // 1. Application UI state
+  //  Application UI state
   // -----------------------------------
 
   const [activeTab, setActiveTab] = useState("upload");
@@ -41,7 +41,7 @@ function App() {
   const [error, setError] = useState("");
 
   // -----------------------------------
-  // 2. Analysis state
+  //  Analysis state
   // -----------------------------------
 
   const [status, setStatus] = useState("idle");
@@ -53,7 +53,7 @@ function App() {
   const hasResult = status === "complete";
 
   // -----------------------------------
-  // 3. History hook
+  // History hook
   // -----------------------------------
 
   const {
@@ -63,7 +63,7 @@ function App() {
   } = useHistory();
 
   // -----------------------------------
-  // 4. Audio hook
+  // Audio hook
   // -----------------------------------
 
   const audio = useAudio({
@@ -72,7 +72,7 @@ function App() {
   });
 
   // -----------------------------------
-  // 5. Microphone hook
+  // Microphone hook
   // -----------------------------------
 
   const microphone = useMicrophone({
@@ -88,7 +88,7 @@ function App() {
   });
 
   // -----------------------------------
-  // 6. Demo analysis
+  // Demo analysis
   // -----------------------------------
 
   const runDemoAnalysis = () => {
@@ -115,7 +115,7 @@ function App() {
   };
 
   // -----------------------------------
-  // 7. UI
+  // UI
   // -----------------------------------
 
   return (

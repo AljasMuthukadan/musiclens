@@ -39,7 +39,7 @@ function App() {
   const [activeTab, setActiveTab] = useState("upload");
   const [mobileMenu, setMobileMenu] = useState(false);
   const [error, setError] = useState("");
-  const reader  = new FileReader()
+  
   // -----------------------------------
   //  Analysis state
   // -----------------------------------

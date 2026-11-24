@@ -114,11 +114,21 @@ function App() {
     // Step 3: Access the samples
     const samples = audioBuffer.getChannelData(0);
 
+    
     console.log("Duration:", audioBuffer.duration);
     console.log("Sample rate:", audioBuffer.sampleRate);
     console.log("Samples:", samples);
 
     // Step 4: Real model inference will go here
+
+    addToHistory({
+      fileName: audio.file.name,
+      analysisDate: new Date().toLocaleString(),
+      genres : DEMO_GENRES,
+      duration: audioBuffer.duration,
+      sampleRate: audioBuffer.sampleRate,
+      samples: samples.length,
+    });
 
   } catch (error) {
     setError(error.message || "Audio analysis failed.");

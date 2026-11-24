@@ -24,12 +24,36 @@ import useHistory from "./hooks/useHistory";
 import useMicrophone from "./hooks/useMicrophone";
 
 const DEMO_GENRES = [
-  { name: "Electronic", value: 68, color: "#a78bfa" },
-  { name: "Pop", value: 19, color: "#60a5fa" },
-  { name: "Hip-Hop", value: 8, color: "#fbbf24" },
-  { name: "Rock", value: 3, color: "#fb7185" },
-  { name: "Jazz", value: 2, color: "#34d399" },
+  { name: "Electronic", value: Math.floor(Math.random() * 100), color: "#a78bfa" },
+  { name: "Pop", value: Math.floor(Math.random() * 100), color: "#60a5fa" },
+  { name: "Hip-Hop", value: Math.floor(Math.random() * 100), color: "#fbbf24" },
+  { name: "Rock", value: Math.floor(Math.random() * 100), color: "#fb7185" },
+  { name: "Jazz", value: Math.floor(Math.random() * 100), color: "#34d399" },
 ];
+
+const generateRandomGenres = () => {
+  let remaining = 100;
+
+  DEMO_GENRES.forEach((genre, index) => {
+    if (index === DEMO_GENRES.length - 1) {
+      // Give the last genre whatever remains
+      genre.value = remaining;
+    } else {
+      // Generate a random value within the remaining limit
+      const value = Math.floor(
+        Math.random() * (remaining + 1)
+      );
+
+      genre.value = value;
+      remaining -= value;
+    }
+  })
+  return DEMO_GENRES;
+};
+
+
+const NEW_GENRES = generateRandomGenres();
+console.log("Randomized genre values:", NEW_GENRES);
 
 function App() {
   // -----------------------------------
@@ -124,7 +148,7 @@ function App() {
     addToHistory({
       fileName: audio.file.name,
       analysisDate: new Date().toLocaleString(),
-      genres : DEMO_GENRES,
+      genres : NEW_GENRES,
       duration: audioBuffer.duration,
       sampleRate: audioBuffer.sampleRate,
       samples: samples.length,

@@ -22,13 +22,14 @@ import { formatTime } from "./utils/formatTime";
 import useAudio from "./hooks/useAudio";
 import useHistory from "./hooks/useHistory";
 import useMicrophone from "./hooks/useMicrophone";
+import { getWaveformData } from "./utils/audioVisualizer";
 
 const DEMO_GENRES = [
-  { name: "Electronic", value: Math.floor(Math.random() * 100), color: "#a78bfa" },
-  { name: "Pop", value: Math.floor(Math.random() * 100), color: "#60a5fa" },
-  { name: "Hip-Hop", value: Math.floor(Math.random() * 100), color: "#fbbf24" },
-  { name: "Rock", value: Math.floor(Math.random() * 100), color: "#fb7185" },
-  { name: "Jazz", value: Math.floor(Math.random() * 100), color: "#34d399" },
+  { name: "Electronic", value: 100, color: "#a78bfa" },
+  { name: "Pop", value: 0, color: "#60a5fa" },
+  { name: "Hip-Hop", value: 0, color: "#fbbf24" },
+  { name: "Rock", value: 0, color: "#fb7185" },
+  { name: "Jazz", value: 0, color: "#34d399" },
 ];
 
 const generateRandomGenres = () => {
@@ -142,7 +143,8 @@ function App() {
     console.log("Duration:", audioBuffer.duration);
     console.log("Sample rate:", audioBuffer.sampleRate);
     console.log("Samples:", samples);
-
+    const waveformData = getWaveformData(audioBuffer); // Get waveform data
+    console.log("Waveform data:", waveformData);
     // Step 4: Real model inference will go here
 
     addToHistory({

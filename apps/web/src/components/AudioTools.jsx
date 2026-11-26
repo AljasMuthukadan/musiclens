@@ -27,7 +27,7 @@ function AudioTools () {
                     const height =
                       12 +
                       Math.abs(
-                        Math.sin(i * 0.73) *
+                        Math.sin(i * 0.08) *
                           Math.cos(i * 0.19) *
                           Math.sin(i * 0.11 + 1)
                       ) *

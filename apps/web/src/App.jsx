@@ -159,6 +159,7 @@ function App() {
     setStatus("idle");
   } finally {
     await audioContext.close();
+    setStatus("complete");
   }
 };
 

@@ -1,7 +1,7 @@
 import Metric from "./ui/Metric";
+import AudioVisualizer  from "./AudioVisualizer";
 
-
-function AudioTools () {
+function AudioTools ({ waveform }) {
   return (
     <section
               id="audio-tools"
@@ -22,30 +22,9 @@ function AudioTools () {
               </div>
 
               <div className="p-6">
-                <div className="relative flex h-[170px] items-center justify-center gap-[3px] overflow-hidden rounded-xl border border-white/[0.06] bg-[#0b0e14] px-4">
-                  {Array.from({ length: 95 }, (_, i) => {
-                    const height =
-                      12 +
-                      Math.abs(
-                        Math.sin(i * 0.08) *
-                          Math.cos(i * 0.19) *
-                          Math.sin(i * 0.11 + 1)
-                      ) *
-                        115;
+                
+                 <AudioVisualizer waveform={waveform} />
 
-                    return (
-                      <div
-                        key={i}
-                        className="min-w-[2px] flex-1 rounded-full bg-[#b6f36b]/70"
-                        style={{ height: `${height}px` }}
-                      />
-                    );
-                  })}
-
-                  <span className="absolute bottom-3 left-4 text-[10px] text-[#686e7b]">
-                    STATIC WAVEFORM PREVIEW
-                  </span>
-                </div>
 
                 <div className="mt-5 grid grid-cols-3 gap-3">
                   <Metric label="Tempo" value="—" unit="BPM" />

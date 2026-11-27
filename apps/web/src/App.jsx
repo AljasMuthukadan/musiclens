@@ -64,6 +64,7 @@ function App() {
   const [activeTab, setActiveTab] = useState("upload");
   const [mobileMenu, setMobileMenu] = useState(false);
   const [error, setError] = useState("");
+  const [waveform, setWaveform] = useState([]);
   
   // -----------------------------------
   //  Analysis state
@@ -139,11 +140,8 @@ function App() {
     // Step 3: Access the samples
     const samples = audioBuffer.getChannelData(0);
 
-    
-    console.log("Duration:", audioBuffer.duration);
-    console.log("Sample rate:", audioBuffer.sampleRate);
-    console.log("Samples:", samples);
     const waveformData = getWaveformData(audioBuffer); // Get waveform data
+    setWaveform(waveformData); // Update the waveform state
     console.log("Waveform data:", waveformData);
     // Step 4: Real model inference will go here
 
@@ -164,6 +162,7 @@ function App() {
   }
 };
 
+
   // -----------------------------------
   // UI
   // -----------------------------------
@@ -179,7 +178,7 @@ function App() {
           setActiveTab={setActiveTab}
         />
 
-        <main className="min-w-0 flex-1">
+        <main className="min-w-0 flex-1 ">
 
           {/* Mobile navigation */}
           <NavBar setMobileMenu={setMobileMenu} />
@@ -323,7 +322,7 @@ function App() {
             </div>
 
             {/* Audio tools */}
-            <AudioTools />
+            <AudioTools waveform={waveform} />
 
             {/* Analysis history */}
             <RecentAnalyses

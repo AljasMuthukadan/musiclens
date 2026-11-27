@@ -25,12 +25,15 @@ function AudioVisualizer({waveform}) {
 
         waveform.forEach((value, index) => {
             const barHeight = value * height; // Scale the value to the canvas height
-            const x = index * barWidth; // X position of the bar
+            const x = index * (barWidth + 1); // X position of the bar
             const y = centerY - barHeight / 2; // Y position to center the bar vertically
 
             // Draw the bar
             ctx.fillStyle = '#b6f36b'; // Color of the bars
-            ctx.fillRect(x, y, barWidth, barHeight);
+            ctx.beginPath();
+
+           ctx.roundRect(x, y, barWidth, barHeight, 5);
+           ctx.fill();
         });
         
     }, [waveform])
